@@ -18,18 +18,20 @@ export const getStaticProps = async () => {
     props: {
       trips: response.items,
     },
+    revalidate: 1,
   };
 };
 
 export default function Home({ trips }) {
   console.log(trips);
-  return <Grid container spacing={5} my={2}>
-    {
-      trips && trips.map((trip)=>(
-        <Grid xs={12} sm={6} lg={4} item key={trip.sys.id}>
-          <TripCard trip={trip}/>
-        </Grid>
-      ) )
-    }
-  </Grid>;
+  return (
+    <Grid container spacing={5} my={2}>
+      {trips &&
+        trips.map((trip) => (
+          <Grid xs={12} sm={6} lg={4} item key={trip.sys.id}>
+            <TripCard trip={trip} />
+          </Grid>
+        ))}
+    </Grid>
+  );
 }

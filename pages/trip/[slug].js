@@ -2,7 +2,7 @@ import client from "@/config/contentful";
 import { Box, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
-import {documentToReactComponents} from '@contentful/rich-text-react-renderer'
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
 export const getStaticPaths = async () => {
   const response = await client.getEntries({
@@ -33,6 +33,7 @@ export const getStaticProps = async ({ params }) => {
     props: {
       trip: response.items[0],
     },
+    revalidate: 1,
   };
 };
 
@@ -50,7 +51,7 @@ const TripDetails = ({ trip }) => {
       />
 
       <Stack spacing={2}>
-        <Typography sx={{color: "#708238"}} variant="h4" fontWeight="bold">
+        <Typography sx={{ color: "#708238" }} variant="h4" fontWeight="bold">
           {title}
         </Typography>
         <Typography variant="h6" color="#7c7f7c">
@@ -58,7 +59,7 @@ const TripDetails = ({ trip }) => {
         </Typography>
       </Stack>
       <Stack spacing={2}>
-        <Typography variant="h5" sx={{color: "#708238"}} fontWeight="bold">
+        <Typography variant="h5" sx={{ color: "#708238" }} fontWeight="bold">
           Attractions
         </Typography>
         <Stack direction="row">
@@ -73,12 +74,10 @@ const TripDetails = ({ trip }) => {
         </Stack>
       </Stack>
       <Stack spacing={2}>
-      <Typography variant="h5" sx={{color: "#708238"}} fontWeight="bold">
+        <Typography variant="h5" sx={{ color: "#708238" }} fontWeight="bold">
           Description
         </Typography>
-        <Box color="#7c7f7c">
-            {documentToReactComponents(description)}
-        </Box>
+        <Box color="#7c7f7c">{documentToReactComponents(description)}</Box>
       </Stack>
     </Stack>
   );
