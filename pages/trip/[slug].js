@@ -3,6 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { useRouter } from "next/router";
 
 export const getStaticPaths = async () => {
   const response = await client.getEntries({
@@ -19,7 +20,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
@@ -38,7 +39,14 @@ export const getStaticProps = async ({ params }) => {
 };
 
 const TripDetails = ({ trip }) => {
-  console.log("trip", trip);
+  const router = useRouter();
+  if (router.isFallback) {
+    return (
+      <div className="container">
+        <h1> ....Loading</h1>
+      </div>
+    );
+  }
   const { title, description, contentImage, brief, attraction } = trip.fields;
   return (
     <Stack spacing={5} my={6}>
