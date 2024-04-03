@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
-const pageNotFound = () => {
+const PageNotFound = () => {
   const router = useRouter();
 
   useEffect(() => {
@@ -38,4 +38,4 @@ const pageNotFound = () => {
   );
 };
 
-export default pageNotFound;
+export default PageNotFound;
